@@ -61,7 +61,9 @@ const Information = {
         }
       }
     }
-    output ? console.log(`${n} Is A Palindrome Number`) : console.log(`${n} Is Not A Palindrome Number`);
+    output
+      ? console.log(`${n} Is A Palindrome Number`)
+      : console.log(`${n} Is Not A Palindrome Number`);
   };
 
   // ? Testing
@@ -71,4 +73,55 @@ const Information = {
   Solution(-1);
   Solution(10);
   Solution(1001);
+}
+
+// ? InstaDSA Problem 02 - LCM & GCD
+{
+  // ? Problem
+  const Problem = {
+    ProblemNumber: 2,
+    Problem: "Find LCM & GCD Of Given Two Numbers",
+    Url: "https://www.geeksforgeeks.org/problems/lcm-and-gcd4516/1",
+    ...Information?.SolvedBy,
+    ...Information?.Challenge,
+    ...Information?.Language,
+  };
+
+  // ? Solution
+  const GetLcmGcdOF = (valueA, valueB) => {
+    let LCM = 1,
+      GCD = 1,
+      isPrime = true;
+    if (valueA === valueB) {
+      LCM = valueA;
+    } else {
+      for (let i = 2; i < valueA * valueB; i++) {
+        for (let j = 2; j <= Math.sqrt(i); j++) {
+          if (i % j == 0) {
+            isPrime = false;
+            break;
+          }
+        }
+
+        if (isPrime) {
+          if (valueA % i == 0 && valueB % i == 0) {
+            LCM *= i;
+            GCD *= i;
+          } else if (valueA % i == 0 || valueB % i == 0) {
+            LCM *= i;
+          }
+        }
+        isPrime = true;
+      }
+    }
+    console.log(`LCM Of ${valueA} & ${valueB} Is : ${LCM} & GCD Is : ${GCD}`);
+  };
+
+  //   ? Testing
+  console.log(
+    `\nTesting Problem - ${Problem.ProblemNumber} : Problem Statement - ${Problem?.Problem}`
+  );
+  GetLcmGcdOF(1, 1);
+  GetLcmGcdOF(10, 30);
+  GetLcmGcdOF(7, 3);
 }
