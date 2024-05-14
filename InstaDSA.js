@@ -129,3 +129,7 @@ const Information = {
     GetLcmGcdOF(7, 3);
   }
 }
+
+// * Day 02
+{
+}
