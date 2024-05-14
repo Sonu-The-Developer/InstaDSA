@@ -24,6 +24,7 @@ const Information = {
     Twitter: "https://twitter.com/S_The_Developer",
     Github: "https://github.com/Sonu-The-Developer",
   },
+  FollowLinkFormat: "### **- [Go To The Problem URL](https://www.geeksforgeeks.org/problems/lcm-and-gcd4516/1)**",
 };
 
 // ? InstaDSA Problem 01 - Palindrome Number
