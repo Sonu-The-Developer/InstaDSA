@@ -29,8 +29,10 @@ const Information = {
 
 // ? InstaDSA Problem 01 - Palindrome Number
 {
+  // ? Problem
   const Problem = {
-    Problem: "Palindrome Number",
+    ProblemNumber: 1,
+    Problem: "Given Number Is Palindrome Number OR Not?",
     Url: "https://leetcode.com/problems/palindrome-number/description",
     ...Information?.SolvedBy,
     ...Information?.Challenge,
@@ -38,8 +40,35 @@ const Information = {
   };
 
   // ? Solution
-  const Solution = (n) => {};
+  const Solution = (n) => {
+    let output = true;
+    if (n < 0) {
+      output = false;
+    }
+    const strN = String(n);
+    const digits = strN.length;
 
-  console.log(`\n*** Output Of ${Problem?.Problem} ***`);
-  console.log(`Solution(10) : ${Solution(10)} \n`);
+    let digitA, digitB;
+
+    if (n > 9) {
+      for (let i = 1; i <= digits / 2; i++) {
+        digitA = strN[i - 1];
+        digitB = strN[digits - i];
+
+        if (digitA !== digitB) {
+          output = false;
+          break;
+        }
+      }
+    }
+    output ? console.log(`${n} Is A Palindrome Number`) : console.log(`${n} Is Not A Palindrome Number`);
+  };
+
+  // ? Testing
+  console.log(
+    `\nTesting Problem - ${Problem.ProblemNumber} : Problem Statement - ${Problem?.Problem}`
+  );
+  Solution(-1);
+  Solution(10);
+  Solution(1001);
 }
