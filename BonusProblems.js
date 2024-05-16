@@ -155,15 +155,15 @@ const Information = {
 
 // * Day 02
 {
-  // ! InstaDSA Bonus Problem 01 - Print First Natural Numbers Which Are Less or Equal To The Given Number
+  // ! InstaDSA Bonus Problem 01 - If GIven Number Is N Then Print = 1**3 + 2**3 + 3**3 + ... N**3
   {
     // & Problem
     const Problem = {
       ChallengeDay: 2,
       ProblemNumber: 1,
       Problem:
-        "Print First Natural Numbers Which Are Less or Equal To The Given Number",
-      Url: "https://www.geeksforgeeks.org/problems/print-n-to-1-without-loop/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=print-n-to-1-without-loop",
+        "If GIven Number Is N Then Print = 1**3 + 2**3 + 3**3 + ... N**3",
+      Url: "https://www.geeksforgeeks.org/problems/count-digits5716/1",
       ...Information?.SolvedBy,
       ...Information?.Challenge,
       ...Information?.Language,
@@ -171,97 +171,57 @@ const Information = {
 
     // & Solution
     const Solution = (Value) => {
-      let Output = [];
-      for (let i = 1; i <= Value; i++) {
-        Output.push(i);
-      }
-      console.log(`First ${Value} Natural Numbers : `, Output);
-    };
-
-    // & Testing
-    console.log(
-      `\nTesting Day ${Problem?.ChallengeDay} Problem - ${Problem?.ProblemNumber} : Problem Statement - ${Problem?.Problem}`
-    );
-    Solution(12);
-    Solution(1);
-    Solution(7);
-  }
-
-  // ! InstaDSA Bonus Problem 02 - Print First Factorial Series Of Numbers Till Factorial Is Lesser Or Equal To The Given Number
-  {
-    // & Problem
-    const Problem = {
-      ChallengeDay: 2,
-      ProblemNumber: 2,
-      Problem:
-        "Print First Factorial Series Of Numbers Till Factorial Is Lesser Or Equal To The Given Number",
-      Url: "https://www.geeksforgeeks.org/problems/find-all-factorial-numbers-less-than-or-equal-to-n3548/0?problemType=functional&difficulty%255B%255D=-1&page=1&query=problemTypefunctionaldifficulty%255B%255D-1page1",
-      ...Information?.SolvedBy,
-      ...Information?.Challenge,
-      ...Information?.Language,
-    };
-
-    // & Solution
-    const Solution = (Value) => {
-      let Output = [1];
-      let LastValue = 1;
-      for (let i = 2; LastValue * i <= Value; i++) {
-        Output.push(LastValue * i);
-        LastValue *= i;
-      }
-      console.log(
-        `Factorial Series Of Numbers Till Factorial Is Lesser Or Equal To ${Value} : ${Output}`
-      );
-    };
-
-    // & Testing
-    console.log(
-      `\nTesting Day ${Problem?.ChallengeDay} Problem - ${Problem?.ProblemNumber} : Problem Statement - ${Problem?.Problem}`
-    );
-    Solution(12);
-    Solution(24);
-    Solution(0);
-  }
-
-  // ! InstaDSA Bonus Problem 03 - Print Sum Of Fibonacci Series (N-1)th Number & (N-2)th Number
-  {
-    // & Problem
-    const Problem = {
-      ChallengeDay: 2,
-      ProblemNumber: 3,
-      Problem: "Print Sum Of Fibonacci Series (N-1)th Number & (N-2)th Number",
-      Url: "https://leetcode.com/problems/fibonacci-number/description/",
-      ...Information?.SolvedBy,
-      ...Information?.Challenge,
-      ...Information?.Language,
-    };
-
-    // & Solution
-    const Solution = (Value) => {
-      let Series = [0, 1];
       let Output = 0;
-      if (Value <= 1) {
-        Output = Value;
-      } else if (Value >= 2) {
-        for (let i = 2; i < Value; i++) {
-          Series.push(Series[i - 2] + Series[i - 1]);
-        }
-        Output = Series[Value - 2] + Series[Value - 1];
+      for (let i = 1; i <= Value; i++) {
+        Output += Math.pow(i, 3);
       }
 
-      console.log(
-        `Sum Of Fibonacci Series ${Value - 1}th Number & ${
-          Value - 2
-        }th Number Is : ${Output}`
-      );
+      console.log(`1**3 + 2**3 + 3**3 + ... N**3 Of ${Value} Is : ${Output}`);
     };
 
     // & Testing
     console.log(
-      `\nTesting Day ${Problem?.ChallengeDay} Problem - ${Problem?.ProblemNumber} : Problem Statement - ${Problem?.Problem}`
+      `\nTesting Day ${Problem?.ChallengeDay} Problem - ${Problem.ProblemNumber} : Problem Statement - ${Problem?.Problem}`
     );
+    Solution(3);
     Solution(0);
-    Solution(4);
-    Solution(1);
+    Solution(5);
+  }
+
+  // ! InstaDSA Bonus Problem 02 - Reverse The Number
+  {
+    // & Problem
+    const Problem = {
+      ChallengeDay: 1,
+      ProblemNumber: 2,
+      Problem: "Reverse The Given Number",
+      Url: "https://leetcode.com/problems/reverse-integer/description/",
+      ...Information?.SolvedBy,
+      ...Information?.Challenge,
+      ...Information?.Language,
+    };
+
+    // & Solution
+    const Solution = (Value) => {
+      let Output = true;
+      const cleanedStr = Value.toLowerCase().replace(/[^a-z0-9]/g, "");
+      for (let i = 0; i < Math.floor(cleanedStr.length / 2); i++) {
+        if (cleanedStr[i] !== cleanedStr[cleanedStr.length - 1 - i]) {
+          Output = false;
+        }
+      }
+
+      Output
+        ? console.log(`"${Value}" : Is A Palindrome String`)
+        : console.log(`"${Value}" : Is Not A Palindrome String`);
+    };
+
+    // & Testing
+    console.log(
+      `\nTesting Day ${Problem?.ChallengeDay} Problem - ${Problem.ProblemNumber} : Problem Statement - ${Problem?.Problem}`
+    );
+    Solution("A man, a plan, a canal: Panama");
+    Solution("race a car");
+    Solution(" ");
   }
 }
