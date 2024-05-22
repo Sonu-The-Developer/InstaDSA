@@ -36,6 +36,7 @@ const Information = {
     const Problem = {
       ChallengeDay: 1,
       ProblemNumber: 1,
+      Constraints: '-231 <= x <= 231 - 1',
       Problem: "Given Number Is Palindrome Number OR Not?",
       Url: "https://leetcode.com/problems/palindrome-number/description",
       ...Information?.SolvedBy,
@@ -44,35 +45,17 @@ const Information = {
     };
 
     // & Solution
-    const Solution = (n) => {
-      let output = true;
-      if (n < 0) {
-        output = false;
-      }
-      const strN = String(n);
-      const digits = strN.length;
-
-      let digitA, digitB;
-
-      if (n > 9) {
-        for (let i = 1; i <= digits / 2; i++) {
-          digitA = strN[i - 1];
-          digitB = strN[digits - i];
-
-          if (digitA !== digitB) {
-            output = false;
-            break;
-          }
-        }
-      }
-      output
-        ? console.log(`${n} Is A Palindrome Number`)
-        : console.log(`${n} Is Not A Palindrome Number`);
+    const Solution = (Value) => {
+      let reverse = String(Value).split('').reverse().join('');
+      
+      reverse == Value
+        ? console.log(`${Value} Is A Palindrome Number`)
+        : console.log(`${Value} Is Not A Palindrome Number`);
     };
 
     // & Testing
     console.log(
-      `\nTesting Day ${Problem?.ChallengeDay} Problem - ${Problem.ProblemNumber} : Problem Statement - ${Problem?.Problem}`
+      `\nTesting Day ${Problem?.ChallengeDay} Problem ${Problem.ProblemNumber} : Problem Statement - ${Problem?.Problem}`
     );
     Solution(-1);
     Solution(10);
@@ -85,6 +68,7 @@ const Information = {
     const Problem = {
       ChallengeDay: 1,
       ProblemNumber: 2,
+      Constraints: "1 <= A,B <= 109",
       Problem: "Find LCM & GCD Of Given Two Numbers",
       Url: "https://www.geeksforgeeks.org/problems/lcm-and-gcd4516/1",
       ...Information?.SolvedBy,
@@ -93,55 +77,72 @@ const Information = {
     };
 
     // & Solution
-    const GetLcmGcdOF = (valueA, valueB) => {
-      let LCM = 1,
-        GCD = 1,
-        isPrime = true;
-      if (valueA === valueB) {
-        LCM = valueA;
-      } else {
-        for (let i = 2; i < valueA * valueB; i++) {
-          for (let j = 2; j <= Math.sqrt(i); j++) {
-            if (i % j == 0) {
-              isPrime = false;
-              break;
-            }
-          }
-
-          if (isPrime) {
-            if (valueA % i == 0 && valueB % i == 0) {
-              LCM *= i;
-              GCD *= i;
-            } else if (valueA % i == 0 || valueB % i == 0) {
-              LCM *= i;
-            }
-          }
-          isPrime = true;
+    const Solution = (valueA, valueB) => {
+      let Num1 = valueA, Num2 = valueB, GCD = 1;
+      while(Num1 && Num2) {
+        if(Num1 > Num2) {
+            Num1 = Num1 % Num2;
+        } else {
+            Num2 = Num2 % Num1;
         }
       }
-      console.log(`LCM Of ${valueA} & ${valueB} Is : ${LCM} & GCD Is : ${GCD}`);
+      GCD = Num1 === 0 ? Num2 : Num1;
+
+      console.log(`LCM Of ${valueA} & ${valueB} Is : ${valueA*valueB/GCD} & GCD Is : ${GCD}`);
     };
 
     // & Testing
     console.log(
-      `\nTesting Day ${Problem?.ChallengeDay} Problem - ${Problem.ProblemNumber} : Problem Statement - ${Problem?.Problem}`
+      `\nTesting Day ${Problem?.ChallengeDay} Problem ${Problem.ProblemNumber} : Problem Statement - ${Problem?.Problem}`
     );
-    GetLcmGcdOF(1, 1);
-    GetLcmGcdOF(10, 30);
-    GetLcmGcdOF(7, 3);
+    Solution(1, 1);
+    Solution(10, 30);
+    Solution(7, 3);
   }
+ 
+  // ! InstaDSA Problem 03 - Print Count The Number Of Digits In Value Which Evenly Divide Value
+  {
+    // & Problem
+    const Problem = {
+      ChallengeDay: 1,
+      ProblemNumber: 1,
+      Constraints: "1<=N<=105",
+      Problem: "Print Count The Number Of Digits In Value Which Evenly Divide Value",
+      Url: "https://www.geeksforgeeks.org/problems/count-digits5716/1",
+      ...Information?.SolvedBy,
+      ...Information?.Challenge,
+      ...Information?.Language,
+    };
+
+    // & Solution
+    const Solution = (Value) => {
+      let AllDigits = String(Value).split('');
+      let Output = AllDigits.filter(Num => Num == 0 ? false : Value % Num == 0)
+      console.log(`Count Of Digits In ${Value} Which Evenly Divide ${Value} Is : ${Output.length} & Output Values Are : `, Output);
+    };
+
+    // & Testing
+    console.log(
+      `\nTesting Day ${Problem?.ChallengeDay} Problem ${Problem?.ProblemNumber} : Problem Statement - ${Problem?.Problem}`
+    );
+    Solution(102);
+    Solution(1);
+    Solution(27);
+  }
+  
 }
 
 // * Day 02
 {
-  // ! InstaDSA Problem 01 - Print First Natural Numbers Which Are Less or Equal To The Given Number
+  // ! InstaDSA Problem 01 - Print First Natural Numbers Which Are Less or Equal To The Given Number : Without Loop (Recursion)
   {
     // & Problem
     const Problem = {
       ChallengeDay: 2,
       ProblemNumber: 1,
+      Constraint: "1<=n<=1000",
       Problem:
-        "Print First Natural Numbers Which Are Less or Equal To The Given Number",
+        "Print First Natural Numbers Which Are Less or Equal To The Given Number : Without Loop (Recursion)",
       Url: "https://www.geeksforgeeks.org/problems/print-n-to-1-without-loop/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=print-n-to-1-without-loop",
       ...Information?.SolvedBy,
       ...Information?.Challenge,
@@ -151,19 +152,25 @@ const Information = {
     // & Solution
     const Solution = (Value) => {
       let Output = [];
-      for (let i = 1; i <= Value; i++) {
-        Output.push(i);
+      const RecursionFunc = (Value) => {
+        if(Value >= 1) {
+          Output.push(Value);
+          --Value;
+          RecursionFunc(Value);
+        }
       }
+      RecursionFunc(Value);
+      
       console.log(`First ${Value} Natural Numbers : `, Output);
     };
 
     // & Testing
     console.log(
-      `\nTesting Day ${Problem?.ChallengeDay} Problem - ${Problem?.ProblemNumber} : Problem Statement - ${Problem?.Problem}`
+      `\nTesting Day ${Problem?.ChallengeDay} Problem ${Problem?.ProblemNumber} : Problem Statement - ${Problem?.Problem}`
     );
-    Solution(12);
     Solution(1);
-    Solution(7);
+    Solution(5);
+    Solution(8);
   }
 
   // ! InstaDSA Problem 02 - Print First Factorial Series Of Numbers Till Factorial Is Lesser Or Equal To The Given Number
